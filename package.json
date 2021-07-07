@@ -1,0 +1,12 @@
+{
+  "name": "clicksign-movidesk",
+  "version": "1.0.0",
+  "description": "integration between clicksign and movidesk api",
+  "main": "index.js",
+  "repository": "https://github.com/erickgannem/clicksign-movidesk.git",
+  "author": "Erick Gannem",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
