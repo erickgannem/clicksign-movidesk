@@ -1,6 +1,7 @@
 import express, { Application } from 'express'
 import dotenv from 'dotenv'
 import routes from './routes'
+import error from './middlewares/error'
 
 const { NODE_ENV } = process.env
 
@@ -31,5 +32,7 @@ export default class App {
     this.server.use(routes)
   }
 
-  errors () {}
+  errors () {
+    this.server.use(error)
+  }
 }
