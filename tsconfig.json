@@ -11,12 +11,5 @@
     "forceConsistentCasingInFileNames": true,        /* Disallow inconsistently-cased references to the same file. */
     "outDir": "build",
     "rootDir": "src",
-    "baseUrl": "src",                             /* Base directory to resolve non-absolute module names. */
-    "paths": {
-      "@constants/*":["constants/*"],
-      "@handlers/*":["handlers/*"],
-      "@middlewares/*":["middlewares/*"],
-      "@utils/*":["utils/*"]
-    }
   },
 }

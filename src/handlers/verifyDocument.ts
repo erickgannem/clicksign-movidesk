@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express'
 import crypto from 'crypto'
 
-import compareHashes from '@utils/compareHashes'
-import { NO_HASH_MATCH, NO_HMAC_FOUND } from '@constants/error'
+import compareHashes from '../utils/compareHashes'
+import { NO_HASH_MATCH, NO_HMAC_FOUND } from '../constants/error'
 
 export default function verifyDocument (req: Request, res: Response, next: NextFunction) {
   const { headers, rawBody } = req
