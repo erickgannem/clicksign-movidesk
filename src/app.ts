@@ -1,14 +1,21 @@
 import express, { Application } from 'express'
 import dotenv from 'dotenv'
-import routes from './routes'
-import error from './middlewares/error'
+import routes from 'routes'
+import error from '@middlewares/error'
 
 const { NODE_ENV } = process.env
+
+declare module 'http' {
+  export interface IncomingMessage {
+    rawBody: string | Buffer
+  }
+}
 
 export default class App {
   server: Application
   constructor () {
     switch (NODE_ENV) {
+      case 'debug':
       case 'dev':
         dotenv.config({ path: '.env.dev' })
         break
@@ -25,7 +32,11 @@ export default class App {
   }
 
   middlewares () {
-    this.server.use(express.json())
+    this.server.use(express.json({
+      verify: (req, res, buf) => {
+        req.rawBody = buf
+      }
+    }))
   }
 
   routes () {

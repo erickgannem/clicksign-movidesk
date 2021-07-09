@@ -1,6 +1,6 @@
 {
   "verbose": true,
   "execMap": {
-    "ts": "node -r sucrase/register/ts"
+    "ts": "node -r sucrase/register/ts -r tsconfig-paths/register"
   }
 }
