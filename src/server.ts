@@ -1,4 +1,4 @@
-import App from 'app'
+import App from './app'
 
 const server = new App().server
 const PORT = process.env.PORT || 3000

@@ -1,6 +1,6 @@
 import express, { Application } from 'express'
 import dotenv from 'dotenv'
-import routes from 'routes'
+import routes from './routes'
 import error from '@middlewares/error'
 
 const { NODE_ENV } = process.env
