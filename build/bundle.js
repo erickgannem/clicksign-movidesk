@@ -12,7 +12,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var dotenv__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(124);
-/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(126);
+/* harmony import */ var _src_routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(126);
 /* harmony import */ var _middlewares_error__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(130);
 
 
@@ -45,7 +45,7 @@ var App = /** @class */ (function () {
         }));
     };
     App.prototype.routes = function () {
-        this.server.use(_routes__WEBPACK_IMPORTED_MODULE_2__.default);
+        this.server.use(_src_routes__WEBPACK_IMPORTED_MODULE_2__.default);
     };
     App.prototype.errors = function () {
         this.server.use(_middlewares_error__WEBPACK_IMPORTED_MODULE_3__.default);
@@ -20188,9 +20188,9 @@ var __webpack_exports__ = {};
 (() => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _src_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 
-var server = new _app__WEBPACK_IMPORTED_MODULE_0__.default().server;
+var server = new _src_app__WEBPACK_IMPORTED_MODULE_0__.default().server;
 var PORT = process.env.PORT || 3000;
 var feedback = "Listening on port " + PORT + "\n";
 server.listen(PORT, function () { return process.stdout.write(feedback); });

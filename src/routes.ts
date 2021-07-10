@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express'
 
-import verifyDocument from './handlers/verifyDocument'
+import verifyDocument from '@handlers/verifyDocument'
 
 const routes = Router()
 
