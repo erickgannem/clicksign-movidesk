@@ -5,12 +5,6 @@ import error from '@middlewares/error'
 
 const { NODE_ENV } = process.env
 
-declare module 'http' {
-  export interface IncomingMessage {
-    rawBody: string | Buffer
-  }
-}
-
 export default class App {
   server: Application
   constructor () {
