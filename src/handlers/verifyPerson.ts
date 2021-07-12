@@ -58,7 +58,7 @@ export default async function verifyPerson (req: Request, res: Response, next: N
     }
     req.person = retrieved[0]
     return next()
-  } catch (e) {
-    next(e)
+  } catch (err) {
+    next(err)
   }
 }
