@@ -20,6 +20,7 @@ module.exports = {
       '@handlers': path.resolve(__dirname, 'src/handlers'),
       '@middlewares': path.resolve(__dirname, 'src/middlewares'),
       '@utils': path.resolve(__dirname, 'src/utils'),
+      '@interfaces': path.resolve(__dirname, 'src/interfaces'),
       '@src': path.resolve(__dirname, 'src')
     }
   },

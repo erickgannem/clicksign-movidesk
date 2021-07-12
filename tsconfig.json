@@ -19,7 +19,8 @@
       "@constants/*":["constants/*"],
       "@handlers/*":["handlers/*"],
       "@middlewares/*":["middlewares/*"],
-      "@utils/*":["utils/*"]
+      "@utils/*":["utils/*"],
+      "@interfaces/*":["interfaces/*"]
     }    
   },
 }
