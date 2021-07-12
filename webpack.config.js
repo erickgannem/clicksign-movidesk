@@ -21,6 +21,7 @@ module.exports = {
       '@middlewares': path.resolve(__dirname, 'src/middlewares'),
       '@utils': path.resolve(__dirname, 'src/utils'),
       '@interfaces': path.resolve(__dirname, 'src/interfaces'),
+      '@api': path.resolve(__dirname, 'src/api'),
       '@src': path.resolve(__dirname, 'src')
     }
   },

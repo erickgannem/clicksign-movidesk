@@ -20,7 +20,8 @@
       "@handlers/*":["handlers/*"],
       "@middlewares/*":["middlewares/*"],
       "@utils/*":["utils/*"],
-      "@interfaces/*":["interfaces/*"]
+      "@interfaces/*":["interfaces/*"],
+      "@api/*":["api/*"]
     }    
   },
 }
