@@ -1,5 +1,9 @@
 import Email from '@interfaces/Email'
-
+import Relationship from '@interfaces/Relationship'
+import CustomFieldValues from '@interfaces/CustomFieldValues'
+import AtAssets from '@interfaces/AtAssets'
+import Contact from '@interfaces/Contact'
+import Address from '@interfaces/Address'
 export default interface Person {
   id: string
   codeReferenceAdditional: string | number | null
@@ -25,30 +29,11 @@ export default interface Person {
   changedBy: null
   observations: null
   authenticateOn: null
-  addresses: []
-  contacts: [
-    {
-      'contactType': 'Telefone celular'
-      'contact': '+51 996 081 368'
-      'isDefault': true
-    }
-  ]
+  addresses: Address[],
+  contacts: Contact[],
   emails: Email[]
   teams: []
-  relationships: [
-    {
-      'id': null
-      'name': null
-      'slaAgreement': 'Primeiro atendimento e tempo máximo de atendimento por vendedor.'
-      'forceChildrenToHaveSomeAgreement': false
-      'allowAllServices': true
-      'includeInParents': null
-      'loadChildOrganizations': null
-      'services': []
-      'idToDelete': null
-      'isGetMethod': true
-    }
-  ]
-  customFieldValues: []
-  atAssets: []
+  relationships: Relationship[]
+  customFieldValues: CustomFieldValues[]
+  atAssets: AtAssets[]
 }
