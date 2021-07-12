@@ -2,12 +2,11 @@ import { Router } from 'express'
 
 import getServerStatus from '@handlers/getServerStatus'
 import verifyDocument from '@handlers/verifyDocument'
-import verifyClient from '@handlers/verifyClient'
+import verifyPerson from '@handlers/verifyPerson'
 
 const routes = Router()
 
 routes.get('/status', getServerStatus)
-routes.post('/deliver', verifyDocument, verifyClient)
+routes.post('/deliver', verifyDocument, verifyPerson)
 
-routes.post('/test', verifyClient)
 export default routes
