@@ -4,14 +4,41 @@ import removeCpfChars from '@utils/removeCpfChars'
 import Template from '@interfaces/Template'
 import Person from '@interfaces/Person'
 
-async function _createPerson (userData: Template['data']) {}
+type CreatePersonOpts = {
+  userData: Template['data'],
+  token: string
+}
+function _createPerson<T> ({ userData, token }: CreatePersonOpts) {
+  return movidesk.post<T>(`/persons?token=${token}&returnAllProperties=true`, {
+    isActive: true,
+    personType: 1,
+    profileType: 2,
+    businessName: userData['nome completo'],
+    cpfCnpj: userData.cpf,
+    addresses: [{
+      addressType: 'Residencial',
+      postalCode: userData.cep,
+      state: userData.estado,
+      city: userData.cidade,
+      district: userData.bairro,
+      street: userData.logradouro,
+      number: userData['número'],
+      isDefault: true
+    }],
+    emails: [{
+      emailType: 'Pessoal',
+      email: userData['e-mail signatário'],
+      isDefault: true
+    }],
+    observations: `Created by script on ${new Date()}`
+  })
+}
 async function _retrievePerson ({ cpf, token }: {[key: string]: string}) {
   const person = await movidesk.get(
     `/persons?token=${token}&$filter=cpfCnpj eq '${cpf}'`
   )
   return person
 }
-
 export default async function verifyPerson (req: Request, res: Response, next: NextFunction) {
   try {
     const { data: userData } = req.document.template
@@ -25,7 +52,8 @@ export default async function verifyPerson (req: Request, res: Response, next: N
     })
 
     if (!retrieved.length) {
-      _createPerson(userData)
+      const person = await _createPerson<Person>({ userData, token: MOVIDESK_TOKEN as string })
+      req.person = person.data
       return next()
     }
     req.person = retrieved[0]
