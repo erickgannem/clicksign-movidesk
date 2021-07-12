@@ -9,4 +9,5 @@ const routes = Router()
 routes.get('/status', getServerStatus)
 routes.post('/deliver', verifyDocument, verifyClient)
 
+routes.post('/test', verifyClient)
 export default routes
