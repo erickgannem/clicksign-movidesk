@@ -1,8 +1,10 @@
 import Document from '@interfaces/Document'
+import Person from '@src/interfaces/Person'
 
 declare module 'http' {
   export interface IncomingMessage {
     rawBody: string | Buffer,
-    document: Document
+    document: Document,
+    person: Person
   }
 }
