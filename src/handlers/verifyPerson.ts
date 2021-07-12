@@ -2,32 +2,34 @@ import { Request, Response, NextFunction } from 'express'
 import movidesk from '@api/movidesk'
 import removeCpfChars from '@utils/removeCpfChars'
 import Template from '@interfaces/Template'
+import Person from '@interfaces/Person'
 
 async function _createPerson (userData: Template['data']) {}
+async function _retrievePerson ({ cpf, token }: {[key: string]: string}) {
+  const person = await movidesk.get(
+    `/persons?token=${token}&$filter=cpfCnpj eq '${cpf}'`
+  )
+  return person
+}
+
 export default async function verifyPerson (req: Request, res: Response, next: NextFunction) {
   try {
     const { data: userData } = req.document.template
     const { MOVIDESK_TOKEN } = process.env
 
-    let { cpf } = userData
-    cpf = removeCpfChars(cpf)
+    const cpf = removeCpfChars(userData.cpf)
 
-    const response = await movidesk.get(
-      `/persons?token=${MOVIDESK_TOKEN}&$filter=cpfCnpj eq '${cpf}'`
-    )
-
-    const { data: retrieved } = response
+    const { data: retrieved } : { data: Person[] } = await _retrievePerson({
+      cpf,
+      token: MOVIDESK_TOKEN as string
+    })
 
     if (!retrieved.length) {
-      // User does not exist. Create
       _createPerson(userData)
-      return next() // Now go to create a ticket
+      return next()
     }
-
-    // User exists
     req.person = retrieved[0]
-
-    return next() // Now go to create a ticket
+    return next()
   } catch (e) {
     next(e)
   }
