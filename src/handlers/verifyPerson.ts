@@ -8,7 +8,8 @@ type CreatePersonOpts = {
   userData: Template['data'],
   token: string
 }
-function _createPerson<T> ({ userData, token }: CreatePersonOpts) {
+
+const _createPerson = <T>({ userData, token }: CreatePersonOpts) => {
   const {
     cpf,
     cep,
@@ -46,12 +47,13 @@ function _createPerson<T> ({ userData, token }: CreatePersonOpts) {
     observations: `Created by script on ${new Date()}`
   })
 }
-async function _retrievePerson ({ cpf, token }: {[key: string]: string}) {
+const _retrievePerson = async ({ cpf, token }: {[key: string]: string}) => {
   const person = await movidesk.get(
     `/persons?token=${token}&$filter=cpfCnpj eq '${cpf}'`
   )
   return person
 }
+
 export default async function verifyPerson (req: Request, res: Response, next: NextFunction) {
   try {
     const { data: userData } = req.document.template
