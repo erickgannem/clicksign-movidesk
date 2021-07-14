@@ -46,13 +46,14 @@ export default async function createTicket (req: Request, res: Response, next: N
     const { person, documentSubject: subject } = req
 
     process.stdout.write('Creating ticket...')
-    const ticket = await _createTicketCall<Ticket>({
+    await _createTicketCall<Ticket>({
       data: { person, subject },
       token: MOVIDESK_TOKEN as string,
       adminId: MOVIDESK_ADMIN_ID as string
     })
 
-    return res.status(200).json(ticket)
+    process.stdout.write(JSON.stringify({ status: 'OK', from: 'createTicket.ts', message: 'Ticket created' }))
+    return res.status(200).json({ message: 'Ticket created' })
   } catch (err) {
     next(err)
   }
