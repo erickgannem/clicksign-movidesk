@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from 'express'
 import { NO_HASH_MATCH, NO_HMAC_FOUND } from '@constants/error'
 import compareHashes from '@utils/compareHashes'
 import createHash from '@utils/createHash'
+import formatFileName from '@src/utils/formatFileName'
 
 export default function verifyDocument (req: Request, res: Response, next: NextFunction) {
   const { headers, rawBody } = req
@@ -29,6 +30,7 @@ export default function verifyDocument (req: Request, res: Response, next: NextF
   const { body: payload } = req
 
   req.document = payload.document
+  req.documentSubject = formatFileName(req.document.filename)
 
   return next()
 }

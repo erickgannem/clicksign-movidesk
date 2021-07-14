@@ -5,6 +5,7 @@ declare module 'http' {
   export interface IncomingMessage {
     rawBody: string | Buffer,
     document: Document,
-    person: Person
+    person: Person,
+    documentSubject: string
   }
 }

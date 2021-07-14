@@ -3,38 +3,51 @@ import movidesk from '@api/movidesk'
 import Person from '@interfaces/Person'
 import Ticket from '@interfaces/Ticket'
 
-type CreateTicketOpts = {
-  person: Person
+type CreateTicketCallOpts = {
+  data: {
+    person: Person
+    subject: string
+  }
   token: string
   adminId: string
 }
-const _createTicketCall = async <T>({ person, token, adminId }: CreateTicketOpts) => {
+const _createTicketCall = async <T>({
+  data: { person, subject },
+  token,
+  adminId
+}: CreateTicketCallOpts) => {
   const { id } = person
-  const ticket = movidesk.post<T>('/tickets?token=' + token, {
+  const ticket = movidesk.post<T>(`/tickets?token=${token}`, {
+    subject,
     type: 2,
-    subject: '[TESTE] Assunto do Ticket via REST',
+    origin: 8,
     status: 'Novo',
-    origin: 8, // contact form
     owner: null,
     ownerTeam: null,
     clients: [{ id }],
     createdBy: { id: adminId },
     actions: [{
-      description: 'Teste from REST CLIENT \n',
-      htmlDescription: '<p>Teste FROM REST CLIENT</p>',
-      type: 1 // intern
+      description: `
+        Ticket gerado automaticamente pelo sistema de integração a respeito de: \n
+        ${subject} \n
+      `,
+      htmlDescription: `<b>Ticket gerado automaticamente pelo sistema de integração a respeito de:</b> \n
+      <p>${subject}</p>
+      `,
+      type: 1
     }]
   })
   return ticket
 }
+
 export default async function createTicket (req: Request, res: Response, next: NextFunction) {
   try {
     const { MOVIDESK_TOKEN, MOVIDESK_ADMIN_ID } = process.env
-    const { person } = req
+    const { person, documentSubject: subject } = req
 
     process.stdout.write('Creating ticket...')
     const ticket = await _createTicketCall<Ticket>({
-      person,
+      data: { person, subject },
       token: MOVIDESK_TOKEN as string,
       adminId: MOVIDESK_ADMIN_ID as string
     })
