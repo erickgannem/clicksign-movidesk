@@ -3,6 +3,7 @@ import movidesk from '@api/movidesk'
 import removeCpfChars from '@utils/removeCpfChars'
 import Template from '@interfaces/Template'
 import Person from '@interfaces/Person'
+import { logger as log } from '@src/utils/logger'
 
 type CreatePersonOpts = {
   userData: Template['data'],
@@ -67,7 +68,11 @@ export default async function verifyPerson (req: Request, res: Response, next: N
     })
 
     if (!retrieved.length) {
-      process.stdout.write('Person does not exists. Creating a person... \n')
+      log({
+        status: 'OK',
+        message: 'User does not exist. Creating...',
+        from: 'verifyPerson.ts'
+      })
       const person = await _createPerson<Person>({
         userData,
         token: MOVIDESK_TOKEN as string
@@ -75,7 +80,11 @@ export default async function verifyPerson (req: Request, res: Response, next: N
       req.person = person.data
       return next()
     }
-    process.stdout.write('Person exists. Skipping... \n')
+    log({
+      status: 'OK',
+      message: 'User already exists. Skipping',
+      from: 'verifyPerson.ts'
+    })
     req.person = retrieved[0]
     return next()
   } catch (err) {

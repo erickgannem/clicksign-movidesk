@@ -3,6 +3,8 @@ import movidesk from '@api/movidesk'
 import Person from '@interfaces/Person'
 import Ticket from '@interfaces/Ticket'
 
+import { logger as log } from '@src/utils/logger'
+
 type CreateTicketCallOpts = {
   data: {
     person: Person
@@ -45,14 +47,22 @@ export default async function createTicket (req: Request, res: Response, next: N
     const { MOVIDESK_TOKEN, MOVIDESK_ADMIN_ID } = process.env
     const { person, documentSubject: subject } = req
 
-    process.stdout.write('Creating ticket...')
+    log({
+      status: 'OK',
+      message: 'Creating ticket',
+      from: 'createTicket.ts'
+    })
     await _createTicketCall<Ticket>({
       data: { person, subject },
       token: MOVIDESK_TOKEN as string,
       adminId: MOVIDESK_ADMIN_ID as string
     })
 
-    process.stdout.write(JSON.stringify({ status: 'OK', from: 'createTicket.ts', message: 'Ticket created' }))
+    log({
+      status: 'OK',
+      from: 'createTicket.ts',
+      message: 'Ticket created'
+    })
     return res.status(200).json({ message: 'Ticket created' })
   } catch (err) {
     next(err)
