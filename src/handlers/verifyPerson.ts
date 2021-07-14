@@ -67,10 +67,15 @@ export default async function verifyPerson (req: Request, res: Response, next: N
     })
 
     if (!retrieved.length) {
-      const person = await _createPerson<Person>({ userData, token: MOVIDESK_TOKEN as string })
+      process.stdout.write('Person does not exists. Creating a person...')
+      const person = await _createPerson<Person>({
+        userData,
+        token: MOVIDESK_TOKEN as string
+      })
       req.person = person.data
       return next()
     }
+    process.stdout.write('Person exists. Skipping...')
     req.person = retrieved[0]
     return next()
   } catch (err) {
