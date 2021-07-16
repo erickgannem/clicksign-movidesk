@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import removeCpfChars from '@utils/removeCpfChars'
 import Person from '@interfaces/Person'
 import { logger as log } from '@src/utils/logger'
-import retrievePerson from '@src/api/createTicket'
+import retrievePerson from '@src/api/retrievePerson'
 import createPerson from '@src/api/createPerson'
 
 export default async function verifyPerson (req: Request, res: Response, next: NextFunction) {
